@@ -1,45 +1,69 @@
-document.getElementById("txt").innerText="これはゲームです";
 const canvas=document.getElementById("gameCanvas")
 const ctx=canvas.getContext("2d");
 
+
+const player={
+    x:canvas.width/2-15,
+    y:canvas.height-60,
+    width:30,
+    height:30,
+    color:"red"
+};
+
+const bullets=[];
+const BULLET_SPEED=-10;
+
+function tryShoot(){
+    bullets.push({
+        x:player.x,
+        y:player.y,
+        width: 5,
+        height: 5,
+        vy: BULLET_SPEED,
+    })
+}
 //fillRect(x座標(横),y座標(縦),横幅,縦幅)
 
 //自分のキャラクターに見立てた四角形をとりあえず作ろう。
 
 //width="480"height="640"
-let keydown=225;
-let y=40;
-let a=60;
-let tama=225
 window.addEventListener("keydown",(e)=> {
     if(e.key==="ArrowLeft"){
-        keydown-=10;
+        player.x-=10;
     }else if(e.key==="ArrowRight"){
-         keydown+=10;
-    }else if(e.key==="Space"){
-        tama +=1;
+        player.x+=10;
+    }else if(e.code==="Space"){
+        tryShoot();
     }
     });
-    window.addEventListener("keydown",(e)=> {
-    if(e.key==="Space"){
-        tama +=1;
-    }
-});
-function gameLoop(){
-ctx.fillStyle="black";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="blue";
-ctx.fillRect(keydown,480,30,30);
-ctx.fillStyle="red";
-ctx.fillRect(40,y,30,30);
-ctx.fillStyle="red";
-ctx.fillRect(180,a,30,30);
-keydown +=1;
-y +=3;
-a +=5;
-ctx.fillStyle="blue";
-ctx.fillRect(keydown+10,480-tama*10,10,10);
+   
+    function upate(){
 
+        for(let i=0;1<bullets.length;i++){
+            const bullet=bullets[i];
+            bullet.y +=bullet.vy;
+             if(bullet.y<0){
+        bullets.splice(i,1);
+        }
+    }
+}
+
+    function draw(){
+        ctx.fillStyle="black";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle=player.color;
+        ctx.fillRect(player.x,player.y,player.width,player.height);
+
+        ctx.fillStyle="white";
+        for(let i=0;i<bullets.length;i++){
+            const bullet=bullets[i];
+            ctx.fillRect(bullet.x,bullet.y,bullet.width,bullet.height);
+        }
+        
+    }
+    function gameLoop(){
+ upate();
+draw(); 
 requestAnimationFrame(gameLoop);
 }
 
