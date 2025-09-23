@@ -7,11 +7,12 @@ const player={
     y:canvas.height-60,
     width:30,
     height:30,
-    color:"red"
+    color:"red",
+    life:3
 };
 
 const bullets=[];
-const BULLET_SPEED=-10;
+const BULLET_SPEED=-12;
 
 function tryShoot(){
     bullets.push({
@@ -29,41 +30,49 @@ function tryShoot(){
 //width="480"height="640"
 window.addEventListener("keydown",(e)=> {
     if(e.key==="ArrowLeft"){
-        player.x-=10;
+        if(player.x>0){
+        player.x-=25;
+        }
     }else if(e.key==="ArrowRight"){
-        player.x+=10;
+        if(player.x<canvas.width-player.width-25){
+        player.x+=25;
+        }
     }else if(e.code==="Space"){
         tryShoot();
     }
     });
-   
-    function upate(){
 
+    function upate(){
         for(let i=0;1<bullets.length;i++){
             const bullet=bullets[i];
             bullet.y +=bullet.vy;
+
              if(bullet.y<0){
         bullets.splice(i,1);
+        i--;
         }
     }
 }
 
     function draw(){
+
         ctx.fillStyle="black";
         ctx.fillRect(0,0,canvas.width,canvas.height);
+
         ctx.fillStyle=player.color;
         ctx.fillRect(player.x,player.y,player.width,player.height);
 
-        ctx.fillStyle="white";
+        ctx.fillStyle="red";
         for(let i=0;i<bullets.length;i++){
             const bullet=bullets[i];
             ctx.fillRect(bullet.x,bullet.y,bullet.width,bullet.height);
         }
-        
-    }
+
+        }
     function gameLoop(){
  upate();
 draw(); 
+
 requestAnimationFrame(gameLoop);
 }
 
