@@ -1,25 +1,20 @@
-const canvas=document.getElementById("gameCanvas")
+import{player,initPlayer,drawPlayer}from"./player.js";
+import{SPawnEnemy,enemies}from "./enemies.js";
+const canvas=document.getElementById("gameCanvas");
 const ctx=canvas.getContext("2d");
 
+initPlayer(canvas);
 
-const player={
-    x:canvas.width/2-15,
-    y:canvas.height-60,
-    width:30,
-    height:30,
-    color:"red",
-    life:3
-};
 
 const bullets=[];
-const BULLET_SPEED=-12;
+const BULLET_SPEED=-5;
 
 function tryShoot(){
     bullets.push({
         x:player.x,
         y:player.y,
-        width: 5,
-        height: 5,
+        width: 10,
+        height: 10,
         vy: BULLET_SPEED,
     })
 }
@@ -30,26 +25,24 @@ function tryShoot(){
 //width="480"height="640"
 window.addEventListener("keydown",(e)=> {
     if(e.key==="ArrowLeft"){
-        if(player.x>0){
-        player.x-=25;
+        if(player.x>10){
+        player.x-=10;
         }
     }else if(e.key==="ArrowRight"){
-        if(player.x<canvas.width-player.width-25){
-        player.x+=25;
+        if(player.x<canvas.width-player.width-10){
+        player.x+=10;
         }
     }else if(e.code==="Space"){
         tryShoot();
     }
     });
 
-    function upate(){
-        for(let i=0;1<bullets.length;i++){
+    function update(){
+        for(let i=0;i<bullets.length;i++){
             const bullet=bullets[i];
             bullet.y +=bullet.vy;
-
              if(bullet.y<0){
         bullets.splice(i,1);
-        i--;
         }
     }
 }
@@ -59,20 +52,22 @@ window.addEventListener("keydown",(e)=> {
         ctx.fillStyle="black";
         ctx.fillRect(0,0,canvas.width,canvas.height);
 
-        ctx.fillStyle=player.color;
-        ctx.fillRect(player.x,player.y,player.width,player.height);
+       drawPlayer(ctx);
 
-        ctx.fillStyle="red";
+        ctx.fillStyle="white";
         for(let i=0;i<bullets.length;i++){
             const bullet=bullets[i];
             ctx.fillRect(bullet.x,bullet.y,bullet.width,bullet.height);
         }
-
+ }
+         ctx.fillStyle="red";
+        for(let i=0;i<bullets.length;i++){
+            const bullet=bullets[i];
+            ctx.fillRect(enemy.x,enemy.y,enemy.width,enemy.height);
         }
     function gameLoop(){
- upate();
+ update();
 draw(); 
-
 requestAnimationFrame(gameLoop);
 }
 
