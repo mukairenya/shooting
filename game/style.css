@@ -15,3 +15,7 @@ body {
   display: block;
 }
 
+#lifeBoard, #scoreBoard {
+  color: #ffffff;
+  font-size: 50px;
+}
