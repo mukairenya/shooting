@@ -1,6 +1,5 @@
-
 import { player, initPlayer, drawPlayer } from "./player.js";
-import { spawnEnemy, enemies,updateEnemies,drawEnemies } from "./enemies.js";
+import { spawnEnemy, enemies, updateEnemies, drawEnemies } from "./enemies.js";
 import { handleCollisions } from "./collision.js";
 
 const canvas = document.getElementById("gameCanvas");
@@ -16,18 +15,19 @@ const BULLET_SPEED = -5;
 
 function tryShoot() {
     bullets.push({
-        x: player.x+ player.width / 2-5,
+        x: player.x + player.width / 2 - 5,
         y: player.y,
         width: 10,
         height: 10,
         vy: BULLET_SPEED,
     })
 }
-function updateScore(){
+
+function updateScore() {
     const scoreBoard = document.getElementById("scoreBoard");
-scoreBoard.innerText = `Score:`+player.score;
-const lifeBoard = document.getElementById("lifeBoard");
-lifeBoard.innerText =`Life:`;player.life;
+    scoreBoard.innerText = `Score:  $ {player.score}`;
+    const lifeBoard = document.getElementById("lifeBoard");
+    lifeBoard.innerText = `Life:  $ {player.life}`;
 }
 
 window.addEventListener("keydown", (e) => {
@@ -53,14 +53,14 @@ function update() {
         }
     }
     spawnEnemy(canvas);
-   updateEnemies(canvas);
-   handleCollisions();
-   updateScore();
+    updateEnemies(canvas);
+    handleCollisions();
+    updateScore();
 }
 
 function draw() {
     ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(mapImage, 0, 0, canvas.width, canvas.height);
 
     drawPlayer(ctx);
 
@@ -70,7 +70,7 @@ function draw() {
         ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
     }
 
-   drawEnemies(ctx);
+    drawEnemies(ctx);
 }
 
 function gameLoop() {
@@ -80,4 +80,3 @@ function gameLoop() {
 }
 
 gameLoop();
-

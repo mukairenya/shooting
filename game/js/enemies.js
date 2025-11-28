@@ -1,7 +1,7 @@
 export const enemies = [];
 const SIZE = 50;
 const enemyImage = new Image();
-enemyImage.src ="enemy.png";
+enemyImage.src = "enemy.png";
 
 function pushEnemies(canvas) {
   const w = SIZE;
@@ -31,6 +31,6 @@ export function updateEnemies(canvas) {
 
 export function drawEnemies(ctx) {
   for (const e of enemies) {
-    ctx.drawImage(enemyImage,e.x, e.y, e.width, e.height);
+     ctx.drawImage(enemyImage, e.x, e.y, e.width, e.height);
   }
 }
