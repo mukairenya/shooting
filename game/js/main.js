@@ -41,9 +41,9 @@ function tryShoot() {
 
 function updateScore() {
     const scoreBoard = document.getElementById("scoreBoard");
-    scoreBoard.innerText = `Score: `+ player.score;
+    scoreBoard.innerText =`Score:`+ player.score;
     const lifeBoard = document.getElementById("lifeBoard");
-    lifeBoard.innerText = `Life: `+ player.life;
+    lifeBoard.innerText =`Life:`+ player.life;
 }
 
 window.addEventListener("keydown", (e) => {
@@ -54,6 +54,14 @@ window.addEventListener("keydown", (e) => {
     } else if (e.key === "ArrowRight") {
         if (player.x < canvas.width - player.width - 10) {
             player.x += 10;
+        }
+    }   else if (e.key === "ArrowUp") {
+        if (player.y >10) {
+            player.y -= 10;
+        }
+    }        else if (e.key === "ArrowRight") {
+        if (player.y < canvas.height - player.height - 10) {
+            player.y += 10;
         }
     } else if (e.code === "Space") {
         tryShoot();

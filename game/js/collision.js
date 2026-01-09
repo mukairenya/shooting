@@ -4,10 +4,9 @@ import { bullets } from "./main.js";
 
 export function handleCollisions() {
   // 弾 × 敵
-  for (let ei = enemies.length - 1; ei >= 0; ei--) {
-    const e = enemies[ei];
-    let hit = false;
-
+  for(let ei=enemies.length-1;ei>=0;ei--){
+    const e =enemies[ei];
+    let hit =false;
     for (let bi = bullets.length - 1; bi >= 0; bi--) {
       const b = bullets[bi];
       if (rectsIntersect(
