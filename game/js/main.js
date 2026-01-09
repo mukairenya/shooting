@@ -41,7 +41,7 @@ function tryShoot() {
 
 function updateScore() {
     const scoreBoard = document.getElementById("scoreBoard");
-    scoreBoard.innerText =`Score:`+ player.score;
+    scoreBoard.innerText =`score:`+ player.score;
     const lifeBoard = document.getElementById("lifeBoard");
     lifeBoard.innerText =`Life:`+ player.life;
 }
