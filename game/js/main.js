@@ -19,15 +19,31 @@ function tryShoot() {
         y: player.y,
         width: 10,
         height: 10,
+        vx: 0,
+        vy: BULLET_SPEED,
+
+    }, {
+        x: player.x + player.width / 2 - 5,
+        y: player.y,
+        width: 10,
+        height: 10,
+        vx: -1,
+        vy: BULLET_SPEED,
+    }, {
+        x: player.x + player.width / 2 - 5,
+        y: player.y,
+        width: 10,
+        height: 10,
+        vx: 1,
         vy: BULLET_SPEED,
     })
 }
 
 function updateScore() {
     const scoreBoard = document.getElementById("scoreBoard");
-    scoreBoard.innerText = `Score:  $ {player.score}`;
+    scoreBoard.innerText = `Score: `+ player.score;
     const lifeBoard = document.getElementById("lifeBoard");
-    lifeBoard.innerText = `Life:  $ {player.life}`;
+    lifeBoard.innerText = `Life: `+ player.life;
 }
 
 window.addEventListener("keydown", (e) => {
@@ -48,6 +64,7 @@ function update() {
     for (let i = 0; i < bullets.length; i++) {
         const bullet = bullets[i];
         bullet.y += bullet.vy;
+        bullet.x += bullet.vx;
         if (bullet.y < 0) {
             bullets.splice(i, 1);
         }
